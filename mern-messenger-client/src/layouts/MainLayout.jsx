@@ -19,6 +19,7 @@ const MainLayout = () => {
       console.log(chatList); //chatList._id
 
       const chatExist = chatList.find((chat) => chat._id == newMessage.sender);
+      console.log({ chatExist });
 
       if (!chatExist) {
         // if conversation doesn't exist

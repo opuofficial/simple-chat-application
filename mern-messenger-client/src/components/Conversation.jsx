@@ -109,6 +109,25 @@ const MessageContainer = () => {
         newMessage.sender == selectedChat._id
       ) {
         setMessages((prevMessages) => [...prevMessages, newMessage]);
+      } else {
+        const chatExist = chatList.find(
+          (chat) => chat._id == newMessage.sender
+        );
+        if (!chatExist) {
+          // if conversation doesn't exist
+          setChatList((chats) => [
+            { _id: newMessage.sender, username: newMessage.username },
+            ...chats,
+          ]);
+        } else {
+          // if conversation already exist than move to top
+          const chatIndex = chatList.findIndex(
+            (chat) => chat._id == newMessage.sender
+          );
+          const targetChat = chatList[chatIndex];
+          chatList.splice(chatIndex, 1);
+          setChatList((prev) => [targetChat, ...prev]);
+        }
       }
     });
 
